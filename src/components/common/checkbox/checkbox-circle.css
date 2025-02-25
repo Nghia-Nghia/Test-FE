@@ -1,0 +1,10 @@
+.checkbox-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px dashed #6a6565;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s;
+}
