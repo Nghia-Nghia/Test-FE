@@ -1,0 +1,18 @@
+.custom-text-field {
+  display: flex;
+
+  & > div {
+    width: 100%;
+  }
+
+  & .Polaris-Text--root.Polaris-Text--bodyMd {
+    position: relative;
+
+    & .required {
+      color: red;
+      position: absolute;
+      top: 0;
+      right: -20px;
+    }
+  }
+}

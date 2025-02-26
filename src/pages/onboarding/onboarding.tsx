@@ -2,10 +2,25 @@ import React from "react";
 import "./onboarding.css";
 import SateCompleted from "@components/state-completed/state-completed";
 import StepLayout from "@components/home/onboarding/step/steplayout";
+import { onboardingStore } from "@pages/stores/onboarding";
+import Step1 from "@components/home/onboarding/step/step1/step1";
+import Step2 from "@components/home/onboarding/step/step2/step2";
 
 interface onboardingProps {}
 
 const OnboardingPage: React.FC<onboardingProps> = () => {
+  const { steps, setSteps } = onboardingStore();
+  React.useEffect(() => {
+    setSteps([
+      {
+        title: "Enable our App Embed",
+        isCompleted: true,
+        isActivated: true,
+        element: <Step1 />
+      },
+      { title: "Setup your Facebook Pixel", isCompleted: false, element: <Step2 /> }
+    ]);
+  }, []);
   return (
     <div className='main'>
       <h1 className='tilte'>Onboarding</h1>
@@ -35,17 +50,12 @@ const OnboardingPage: React.FC<onboardingProps> = () => {
           <SateCompleted
             style={{ marginTop: "5px" }}
             size='SM'
-            progress={32}
-            title='Completed 2 of 3 step'
+            progress={(steps.filter((step) => step.isCompleted).length / steps.length) * 100}
+            title={`Completed ${steps.filter((step) => step.isCompleted).length} of ${steps.length} step`}
           />
         </div>
         <div className='content__body'>
-          <StepLayout
-            items={[
-              { title: "Step 1: Add Facebook Pixel ID" },
-              { title: "Step 2: Add Facebook Pixel ID" }
-            ]}
-          />
+          <StepLayout items={steps} />
         </div>
       </div>
     </div>

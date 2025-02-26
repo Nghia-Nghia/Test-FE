@@ -1,27 +1,52 @@
 import React from "react";
 import "./steplayout.css";
 import CheckboxCircle from "@components/common/checkbox/checkbox-circle";
+import { onboardingStore } from "@pages/stores/onboarding";
 
-interface steplayoutItemProps {
+export interface steplayoutItemProps {
   title: string;
   isCompleted?: boolean;
+  isActivated?: boolean;
   element?: React.ReactNode;
 }
 
-interface steplayoutProps {
+export interface steplayoutProps {
   items: steplayoutItemProps[];
 }
 
 const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
+  const { setSteps } = onboardingStore();
   return (
     <div>
       {items?.map((item, index) => (
-        <div key={index} className='content__step'>
+        <div
+          key={index}
+          className='content__step'
+          onClick={() => {
+            console.log("click");
+            const newItems = items.map((item, i) =>
+              i === index ? { ...item, isActivated: true } : { ...item, isActivated: false }
+            );
+            setSteps(newItems);
+          }}
+        >
           <div className='content__step__title'>
-            <CheckboxCircle value={item.isCompleted ?? false} />
+            <CheckboxCircle
+              onClick={() => {
+                const newItems = [...items];
+                newItems[index].isCompleted = !newItems[index].isCompleted;
+                setSteps(newItems);
+              }}
+              value={item.isCompleted ?? false}
+            />
             <p>{item.title}</p>
           </div>
-          <div className='content__step__element'>{item.element}</div>
+          <div
+            className='content__step__element'
+            style={{ paddingLeft: "30px", display: item.isActivated ? "block" : "none" }}
+          >
+            {item.element}
+          </div>
         </div>
       ))}
     </div>
