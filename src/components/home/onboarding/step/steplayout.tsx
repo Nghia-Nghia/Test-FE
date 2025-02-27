@@ -15,7 +15,7 @@ export interface steplayoutProps {
 }
 
 const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
-  const { setSteps } = onboardingStore();
+  const { setSteps, setShowErrorValidate } = onboardingStore();
   return (
     <div>
       {items?.map((item, index) => (
@@ -40,13 +40,15 @@ const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
             <CheckboxCircle
               onClick={() => {
                 const newItems = [...items];
-                newItems[index].isCompleted = true;
                 if (index > 0) {
-                  if (!newItems[index - 1].isCompleted) {
-                    return;
+                  debugger;
+                  if (newItems[index - 1].isCompleted) {
+                    setShowErrorValidate(true);
                   }
+                } else {
+                  setSteps(newItems);
+                  newItems[index].isCompleted = true;
                 }
-                setSteps(newItems);
               }}
               value={item.isCompleted ?? false}
             />

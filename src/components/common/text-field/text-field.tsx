@@ -2,7 +2,9 @@ import React from "react";
 import "./text-field.css";
 import { TextField, TextFieldProps } from "@shopify/polaris";
 
-interface NonMutuallyExclusiveProps {}
+interface NonMutuallyExclusiveProps {
+  showError?: boolean;
+}
 export type CustomTextFieldProps = NonMutuallyExclusiveProps & TextFieldProps;
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({
@@ -12,6 +14,8 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   clearButton,
   requiredIndicator,
   helpText,
+  error,
+  showError,
   onClearButtonClick,
   onChange
 }) => {
@@ -27,6 +31,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
         value={value}
         autoComplete={autoComplete}
         clearButton={clearButton}
+        error={showError && error}
         helpText={helpText}
         onClearButtonClick={onClearButtonClick}
         onChange={onChange}
