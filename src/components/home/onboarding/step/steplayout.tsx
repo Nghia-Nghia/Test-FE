@@ -23,18 +23,29 @@ const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
           key={index}
           className='content__step'
           onClick={() => {
-            console.log("click");
-            const newItems = items.map((item, i) =>
-              i === index ? { ...item, isActivated: true } : { ...item, isActivated: false }
-            );
-            setSteps(newItems);
+            if (index > 0) {
+              if (!items[index - 1].isCompleted) {
+                return;
+              }
+            }
+            if (!items[index].isActivated) {
+              const newItems = items.map((item, i) =>
+                i === index ? { ...item, isActivated: true } : { ...item, isActivated: false }
+              );
+              setSteps(newItems);
+            }
           }}
         >
           <div className='content__step__title'>
             <CheckboxCircle
               onClick={() => {
                 const newItems = [...items];
-                newItems[index].isCompleted = !newItems[index].isCompleted;
+                newItems[index].isCompleted = true;
+                if (index > 0) {
+                  if (!newItems[index - 1].isCompleted) {
+                    return;
+                  }
+                }
                 setSteps(newItems);
               }}
               value={item.isCompleted ?? false}

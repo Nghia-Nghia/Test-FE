@@ -14,9 +14,9 @@ const OnboardingPage: React.FC<onboardingProps> = () => {
     setSteps([
       {
         title: "Enable our App Embed",
-        isCompleted: true,
+        isCompleted: false,
         isActivated: true,
-        element: <Step1 />
+        element: <Step1 index={0} />
       },
       { title: "Setup your Facebook Pixel", isCompleted: false, element: <Step2 /> }
     ]);

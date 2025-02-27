@@ -15,20 +15,18 @@ const CheckboxCircle: React.FC<checkboxCircleProps> = ({
   onClick,
   style
 }) => {
-  const [isChecked, setIsChecked] = React.useState<boolean>(value);
   return (
     <div
       className={`checkbox-circle ${className}`}
       onClick={() => {
-        setIsChecked(!isChecked);
         if (onChange) {
-          onChange(!isChecked);
+          onChange(!value);
         }
         if (onClick) {
           onClick();
         }
       }}
-      style={{ backgroundColor: isChecked ? "black" : "#fff", ...style }}
+      style={{ backgroundColor: value ? "black" : "#fff", ...style }}
     >
       <svg viewBox='0 0 20 20' fill='#fff' focusable='false' aria-hidden='true'>
         <path
