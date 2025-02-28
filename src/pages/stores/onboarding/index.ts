@@ -1,3 +1,4 @@
+import { ComboboxItem } from "@components/common/combobox/combobox";
 import { steplayoutItemProps } from "@components/home/onboarding/step/steplayout";
 import { create } from "zustand";
 
@@ -7,6 +8,7 @@ type State = {
   showErrorValidate: boolean;
   activeButtonIndex: number;
   modelStep2: any;
+  targetDefault: ComboboxItem[];
 };
 
 type Actions = {
@@ -29,5 +31,10 @@ export const onboardingStore = create<State & Actions>((set) => ({
   activeButtonIndex: 0,
   setActiveButtonIndex: (value) => set({ activeButtonIndex: value }),
   modelStep2: {},
-  setModelStep2: (value) => set({ modelStep2: value })
+  setModelStep2: (value) => set({ modelStep2: value }),
+  targetDefault: [
+    { value: "Entire Store", label: "Entire Store" },
+    { value: "Products", label: "Products" },
+    { value: "Collections", label: "Collections" }
+  ]
 }));

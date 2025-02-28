@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./step1.css";
 import { ButtonGroup, Button } from "@shopify/polaris";
 import { ExternalIcon } from "@shopify/polaris-icons";
-import Dialog from "@components/dialog/dialog";
+import Dialog from "@components/common/dialog/dialog";
 import { onboardingStore } from "@pages/stores/onboarding";
 interface step1Props {
   index: number;

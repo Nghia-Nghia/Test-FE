@@ -4,6 +4,7 @@ import { TextField, TextFieldProps } from "@shopify/polaris";
 
 interface NonMutuallyExclusiveProps {
   showError?: boolean;
+  style?: React.CSSProperties;
 }
 export type CustomTextFieldProps = NonMutuallyExclusiveProps & TextFieldProps;
 
@@ -16,11 +17,12 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   helpText,
   error,
   showError,
+  style,
   onClearButtonClick,
   onChange
 }) => {
   return (
-    <div className='custom-text-field'>
+    <div className='custom-text-field' style={style}>
       <TextField
         label={
           <div>

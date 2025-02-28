@@ -1,3 +1,4 @@
+import CustomCombobox from "@components/common/combobox/combobox";
 import CustomTextField from "@components/common/text-field/text-field";
 import { onboardingStore } from "@pages/stores/onboarding";
 import { Button, ButtonGroup } from "@shopify/polaris";
@@ -6,8 +7,14 @@ import React from "react";
 interface step2Props {}
 
 const Step2: React.FC<step2Props> = () => {
-  const { showErrorValidate, activeButtonIndex, setActiveButtonIndex, modelStep2, setModelStep2 } =
-    onboardingStore();
+  const {
+    showErrorValidate,
+    activeButtonIndex,
+    setActiveButtonIndex,
+    modelStep2,
+    setModelStep2,
+    targetDefault
+  } = onboardingStore();
 
   const handleButtonClick = (index: number) => {
     if (activeButtonIndex === index) return;
@@ -58,7 +65,7 @@ const Step2: React.FC<step2Props> = () => {
           </ButtonGroup>
         </div>
         {activeButtonIndex === 0 ? (
-          <div>
+          <div style={{ margin: "10px 0" }}>
             <p style={{ color: "#637381", width: "70%" }}>
               Standard uses Facebook Pixel, a third-party cookie that collects and shares customers’
               browsing behavior on your online store. Browser-based ad blockers can prevent the
@@ -73,6 +80,7 @@ const Step2: React.FC<step2Props> = () => {
               means the data can’t be blocked by ad blockers, IOS 14+
             </p>
             <CustomTextField
+              style={{ margin: "5px 0" }}
               label='Facebook Pixel Access Token'
               error='Facebook Pixel Access is a required field.'
               showError={showErrorValidate}
@@ -89,6 +97,9 @@ const Step2: React.FC<step2Props> = () => {
             />
           </div>
         )}
+        <div style={{ margin: "10px 0" }}>
+          <CustomCombobox label='Target' items={targetDefault} />
+        </div>
       </div>
       <div style={{ width: "20%" }}>
         <Button disabled>Next step</Button>
