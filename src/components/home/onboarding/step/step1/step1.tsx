@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./step1.css";
 import { ButtonGroup, Button } from "@shopify/polaris";
 import { ExternalIcon } from "@shopify/polaris-icons";
@@ -10,6 +10,7 @@ interface step1Props {
 
 const Step1: React.FC<step1Props> = ({ index }) => {
   const { steps, setSteps, isOpenViewInstructions, setIsOpenViewInstructions } = onboardingStore();
+  const [activated, setActivated] = useState<boolean>(false);
 
   const handleClick_EnableLater = (index: number) => {
     const newItems = [...steps];
@@ -21,6 +22,9 @@ const Step1: React.FC<step1Props> = ({ index }) => {
 
   const render_left = (
     <div>
+      {activated ? (
+        <p style={{ margin: "10px 0", color: "red" }}>App Embed isn't activated</p>
+      ) : null}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <p>1. Go to your theme editor by clicking this button</p>
         <Button icon={ExternalIcon}>Open theme</Button>
@@ -38,7 +42,9 @@ const Step1: React.FC<step1Props> = ({ index }) => {
       <div style={{ marginTop: "20px" }} onClick={(e) => e.stopPropagation()}>
         <ButtonGroup>
           <Button onClick={() => handleClick_EnableLater(index)}>Enable Later</Button>
-          <Button variant='primary'>Next step</Button>
+          <Button variant='primary' onClick={() => setActivated(true)}>
+            Next step
+          </Button>
         </ButtonGroup>
       </div>
     </div>

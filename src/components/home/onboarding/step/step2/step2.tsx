@@ -17,12 +17,10 @@ const Step2: React.FC<step2Props> = () => {
     targetSelected,
     tagSelected,
     setTagSelected,
-    setTargetSelected
+    setTargetSelected,
+    activeButtonIndex,
+    setActiveButtonIndex
   } = onboardingStore();
-
-  // activeButtonIndex = 0 : trạng thái đang chọn là Browser
-  // activeButtonIndex = 1 : trạng thái đang chọn là Converstion API
-  const [activeButtonIndex, setActiveButtonIndex] = useState<number>(0);
 
   const { resourcePicker } = useAppBridge();
 
@@ -36,7 +34,9 @@ const Step2: React.FC<step2Props> = () => {
       label='Facebook Pixel Title'
       error='Facebook Pixel Title is a required field.'
       value={modelStep2.title}
-      showError={showErrorValidate && (modelStep2.tilte || modelStep2.title === "")}
+      showError={
+        showErrorValidate && (modelStep2.title ? modelStep2.title.trim().length === 0 : true)
+      }
       onChange={(value) => {
         setModelStep2({ ...modelStep2, title: value });
       }}
@@ -91,15 +91,19 @@ const Step2: React.FC<step2Props> = () => {
         style={{ margin: "5px 0" }}
         label='Facebook Pixel Access Token'
         error='Facebook Pixel Access is a required field.'
-        showError={showErrorValidate}
-        value={modelStep2.title}
-        onChange={() => {
-          setModelStep2({ ...modelStep2, title: modelStep2.title });
+        value={modelStep2.AccessToken}
+        showError={
+          showErrorValidate &&
+          (modelStep2.AccessToken ? modelStep2.AccessToken.trim().length === 0 : true)
+        }
+        onChange={(value) => {
+          setModelStep2({ ...modelStep2, AccessToken: value });
         }}
         clearButton
         requiredIndicator
+        helpText='It helps you to do easily management facebook pixel'
         onClearButtonClick={() => {
-          setModelStep2({ ...modelStep2, title: "" });
+          setModelStep2({ ...modelStep2, AccessToken: "" });
         }}
         autoComplete='off'
       />
@@ -109,7 +113,10 @@ const Step2: React.FC<step2Props> = () => {
     <CustomTextField
       label='Facebook Pixel ID (Dataset ID)'
       error='Facebook Pixel ID is a required field.'
-      showError={showErrorValidate}
+      showError={
+        showErrorValidate &&
+        (modelStep2.DatasetID ? modelStep2.DatasetID.trim().length === 0 : true)
+      }
       value={modelStep2.DatasetID}
       onChange={(value) => {
         setModelStep2({ ...modelStep2, DatasetID: value });

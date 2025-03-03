@@ -6,6 +6,7 @@ type State = {
   steps: steplayoutItemProps[];
   isOpenViewInstructions: boolean;
   showErrorValidate: boolean;
+  activeButtonIndex: number;
   modelStep2: any;
   targetDefault: ComboboxItem[];
   targetSelected?: string | null;
@@ -16,6 +17,7 @@ type Actions = {
   setSteps: (value: steplayoutItemProps[]) => void;
   setIsOpenViewInstructions: (value: boolean) => void;
   setShowErrorValidate: (value: boolean) => void;
+  setActiveButtonIndex: (value: number) => void;
   setModelStep2: (value: any) => void;
   setTargetSelected: (value: string) => void;
   setTagSelected: (value: string[] | null) => void;
@@ -30,6 +32,8 @@ export const onboardingStore = create<State & Actions>((set) => ({
   },
   showErrorValidate: false,
   setShowErrorValidate: (value) => set({ showErrorValidate: value }),
+  activeButtonIndex: 0,
+  setActiveButtonIndex: (value) => set({ activeButtonIndex: value }),
   modelStep2: {},
   setModelStep2: (value) => set({ modelStep2: value }),
   targetDefault: [

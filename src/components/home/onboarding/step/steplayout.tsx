@@ -15,6 +15,8 @@ export interface steplayoutProps {
 }
 
 const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
+  const { modelStep2, activeButtonIndex } = onboardingStore();
+
   const handleClick_Step = (index: number) => {
     if (index > 0) {
       if (!items[index - 1].isCompleted) {
@@ -28,15 +30,29 @@ const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
       setSteps(newItems);
     }
   };
-  const handleClick_checkbox = (index: number) => {
+  const handleClick_checkbox_step1 = () => {
     const newItems = [...items];
-    if (index > 0) {
-      if (newItems[index - 1].isCompleted) {
-        setShowErrorValidate(true);
+    newItems[0].isCompleted = true;
+    setSteps(newItems);
+  };
+  const handleClick_checkbox_step2 = () => {
+    try {
+      const newItems = [...items];
+
+      let isvalid = modelStep2.title.trim().length > 0 && modelStep2.DatasetID.trim().length > 0;
+      if (activeButtonIndex === 1) {
+        isvalid = isvalid && modelStep2.AccessToken;
       }
-    } else {
-      setSteps(newItems);
-      newItems[index].isCompleted = true;
+
+      if (!isvalid) {
+        setShowErrorValidate(true);
+      } else {
+        newItems[1].isCompleted = true;
+        setSteps(newItems);
+      }
+    } catch (err) {
+      console.log(err);
+      setShowErrorValidate(true);
     }
   };
   const { setSteps, setShowErrorValidate } = onboardingStore();
@@ -46,7 +62,13 @@ const StepLayout: React.FC<steplayoutProps> = ({ items }) => {
         <div key={index} className='content__step' onClick={() => handleClick_Step(index)}>
           <div className='content__step__title'>
             <CheckboxCircle
-              onClick={() => handleClick_checkbox(index)}
+              onClick={() => {
+                if (index === 0) {
+                  handleClick_checkbox_step1();
+                } else if (index === 1) {
+                  handleClick_checkbox_step2();
+                }
+              }}
               value={item.isCompleted ?? false}
             />
             <p>{item.title}</p>
