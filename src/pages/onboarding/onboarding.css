@@ -1,50 +1,58 @@
-.main {
-  padding: 150px 500px;
-  background-color: #f1f1f1;
-  & .tilte {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
+.wrapper-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  & .main {
+    width: 60%;
+    background-color: #f1f1f1;
 
-  & .content {
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #dbd6d0;
-    background-color: #fff;
-    & .content__head {
-      padding-bottom: 15px;
+    & .tilte {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
 
-      & .content__title {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        & .seamlessly {
-          position: relative;
+    & .content {
+      width: 100%;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #dbd6d0;
+      background-color: #fff;
+      & .content__head {
+        padding-bottom: 15px;
 
-          & img {
-            position: absolute;
-            top: 18px;
-            left: 0;
-            width: 90px;
+        & .content__title {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          & .seamlessly {
+            position: relative;
+
+            & img {
+              position: absolute;
+              top: 18px;
+              left: 0;
+              width: 90px;
+            }
           }
-        }
 
-        & .single {
-          position: relative;
-          font-size: 19px;
-          padding: 0 7px;
-          & img {
-            position: absolute;
-            top: -6px;
-            left: 0;
+          & .single {
+            position: relative;
+            font-size: 19px;
+            padding: 0 7px;
+            & img {
+              position: absolute;
+              top: -6px;
+              left: 0;
+            }
           }
         }
       }
-    }
 
-    & .content__body {
-      border-top: 1px solid #dbd6d0;
+      & .content__body {
+        border-top: 1px solid #dbd6d0;
+      }
     }
   }
 }
