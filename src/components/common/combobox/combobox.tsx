@@ -9,13 +9,14 @@ export interface ComboboxItem {
 interface NonMutuallyExclusiveProps {
   label?: string;
   items: ComboboxItem[];
+  selected?: string | null;
+  onSelected: (value: string) => void;
   style?: React.CSSProperties;
 }
 
 export type CustomComboboxProps = NonMutuallyExclusiveProps;
 
-const CustomCombobox: React.FC<CustomComboboxProps> = ({ label, items }) => {
-  const [selectedOption, setSelectedOption] = useState<string | undefined>();
+const CustomCombobox: React.FC<CustomComboboxProps> = ({ label, items, selected, onSelected }) => {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState(items);
 
@@ -45,8 +46,7 @@ const CustomCombobox: React.FC<CustomComboboxProps> = ({ label, items }) => {
       const matchedOption = options.find((option) => {
         return option.value.match(selected);
       });
-
-      setSelectedOption(selected);
+      onSelected(selected);
       setInputValue((matchedOption && matchedOption.label) || "");
     },
     [options]
@@ -61,7 +61,7 @@ const CustomCombobox: React.FC<CustomComboboxProps> = ({ label, items }) => {
             <Listbox.Option
               key={`${value}`}
               value={value}
-              selected={selectedOption === value}
+              selected={selected === value}
               accessibilityLabel={label}
             >
               {label}

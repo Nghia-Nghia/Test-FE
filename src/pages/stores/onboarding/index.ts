@@ -9,6 +9,8 @@ type State = {
   activeButtonIndex: number;
   modelStep2: any;
   targetDefault: ComboboxItem[];
+  targetSelected?: string | null;
+  tagSelected: string[] | null;
 };
 
 type Actions = {
@@ -17,6 +19,8 @@ type Actions = {
   setShowErrorValidate: (value: boolean) => void;
   setActiveButtonIndex: (value: number) => void;
   setModelStep2: (value: any) => void;
+  setTargetSelected: (value: string) => void;
+  setTagSelected: (value: string[] | null) => void;
 };
 
 export const onboardingStore = create<State & Actions>((set) => ({
@@ -36,5 +40,9 @@ export const onboardingStore = create<State & Actions>((set) => ({
     { value: "Entire Store", label: "Entire Store" },
     { value: "Products", label: "Products" },
     { value: "Collections", label: "Collections" }
-  ]
+  ],
+  tagSelected: ["select 1", "select 2", "select 3"],
+  setTagSelected: (value) => set({ tagSelected: value }),
+  targetSelected: null,
+  setTargetSelected: (value) => set({ targetSelected: value })
 }));

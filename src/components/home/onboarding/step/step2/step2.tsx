@@ -1,4 +1,5 @@
 import CustomCombobox from "@components/common/combobox/combobox";
+import CustomTag from "@components/common/tag/tag";
 import CustomTextField from "@components/common/text-field/text-field";
 import { onboardingStore } from "@pages/stores/onboarding";
 import { Button, ButtonGroup } from "@shopify/polaris";
@@ -13,7 +14,11 @@ const Step2: React.FC<step2Props> = () => {
     setActiveButtonIndex,
     modelStep2,
     setModelStep2,
-    targetDefault
+    targetDefault,
+    targetSelected,
+    tagSelected,
+    setTagSelected,
+    setTargetSelected
   } = onboardingStore();
 
   const handleButtonClick = (index: number) => {
@@ -98,11 +103,32 @@ const Step2: React.FC<step2Props> = () => {
           </div>
         )}
         <div style={{ margin: "10px 0" }}>
-          <CustomCombobox label='Target' items={targetDefault} />
+          <CustomCombobox
+            label='Target'
+            items={targetDefault}
+            selected={targetSelected}
+            onSelected={(value) => {
+              setTargetSelected(value);
+            }}
+          />
+          <div style={{ margin: "10px 0" }}>
+            {targetSelected === "Products" && <Button>Search product</Button>}
+            {targetSelected === "Collections" && <Button>Search collection</Button>}
+          </div>
+          <div>
+            <CustomTag
+              items={tagSelected}
+              onRemoveTag={(value) => {
+                setTagSelected(tagSelected?.filter((item) => item !== value) ?? []);
+              }}
+            />
+          </div>
         </div>
       </div>
       <div style={{ width: "20%" }}>
-        <Button disabled>Next step</Button>
+        <Button variant='primary' onClick={() => console.log(targetSelected)}>
+          Next step
+        </Button>
       </div>
     </div>
   );
