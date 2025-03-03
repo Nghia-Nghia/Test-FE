@@ -2,7 +2,6 @@ import CustomCombobox from "@components/common/combobox/combobox";
 import CustomTag from "@components/common/tag/tag";
 import CustomTextField from "@components/common/text-field/text-field";
 import { onboardingStore } from "@pages/stores/onboarding";
-import { useAppBridge } from "@shopify/app-bridge-react";
 import { Button, ButtonGroup } from "@shopify/polaris";
 import React, { useState } from "react";
 
@@ -19,14 +18,38 @@ const Step2: React.FC<step2Props> = () => {
     setTagSelected,
     setTargetSelected,
     activeButtonIndex,
-    setActiveButtonIndex
+    setActiveButtonIndex,
+    setShowErrorValidate,
+    setSteps,
+    setIsStepComplete,
+    steps
   } = onboardingStore();
-
-  const { resourcePicker } = useAppBridge();
 
   const handleButtonClick = (index: number) => {
     if (activeButtonIndex === index) return;
     setActiveButtonIndex(index);
+  };
+
+  const handleClick_NextStep = () => {
+    try {
+      const newItems = [...steps];
+
+      let isvalid = modelStep2.title.trim().length > 0 && modelStep2.DatasetID.trim().length > 0;
+      if (activeButtonIndex === 1) {
+        isvalid = isvalid && modelStep2.AccessToken;
+      }
+
+      if (!isvalid) {
+        setShowErrorValidate(true);
+      } else {
+        newItems[1].isCompleted = true;
+        setSteps(newItems);
+        setIsStepComplete(true);
+      }
+    } catch (err) {
+      console.log(err);
+      setShowErrorValidate(true);
+    }
   };
 
   const field_Title = (
@@ -142,7 +165,7 @@ const Step2: React.FC<step2Props> = () => {
     </div>
   );
   const button_NextStep = (
-    <Button variant='primary' onClick={() => console.log(targetSelected)}>
+    <Button variant='primary' onClick={handleClick_NextStep}>
       Next step
     </Button>
   );

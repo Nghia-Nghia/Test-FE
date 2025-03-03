@@ -1,0 +1,33 @@
+.wraper-step-compltete {
+  & .wraper-step-compltete__main {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    & > h1 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    & > img {
+      width: 40%;
+      height: auto;
+    }
+    & > p {
+      margin: 20px 0;
+      width: 55%;
+      & > span {
+        color: #1877f2;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  & .wraper-step-compltete__button {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

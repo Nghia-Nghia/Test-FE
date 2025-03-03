@@ -9,7 +9,14 @@ interface step1Props {
 }
 
 const Step1: React.FC<step1Props> = ({ index }) => {
-  const { steps, setSteps, isOpenViewInstructions, setIsOpenViewInstructions } = onboardingStore();
+  const {
+    showToast,
+    setShowToast,
+    steps,
+    setSteps,
+    isOpenViewInstructions,
+    setIsOpenViewInstructions
+  } = onboardingStore();
   const [activated, setActivated] = useState<boolean>(false);
 
   const handleClick_EnableLater = (index: number) => {
@@ -27,7 +34,9 @@ const Step1: React.FC<step1Props> = ({ index }) => {
       ) : null}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <p>1. Go to your theme editor by clicking this button</p>
-        <Button icon={ExternalIcon}>Open theme</Button>
+        <Button icon={ExternalIcon} onClick={() => setShowToast({ ...showToast, OpenTheme: true })}>
+          Open theme
+        </Button>
       </div>
       <p>2. Click on the Save button on the top right corner.</p>
       <span

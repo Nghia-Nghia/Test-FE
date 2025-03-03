@@ -5,11 +5,13 @@ import StepLayout from "@components/home/onboarding/step/steplayout";
 import { onboardingStore } from "@pages/stores/onboarding";
 import Step1 from "@components/home/onboarding/step/step1/step1";
 import Step2 from "@components/home/onboarding/step/step2/step2";
+import StepComplete from "@components/home/onboarding/step/step-complete/step-complete";
+import { Toast } from "@shopify/polaris";
 
 interface onboardingProps {}
 
 const OnboardingPage: React.FC<onboardingProps> = () => {
-  const { steps, setSteps } = onboardingStore();
+  const { isStepComplete, showToast, setShowToast, steps, setSteps } = onboardingStore();
   React.useEffect(() => {
     setSteps([
       {
@@ -53,6 +55,54 @@ const OnboardingPage: React.FC<onboardingProps> = () => {
       />
     </>
   );
+  const toast = (
+    <>
+      {showToast.OpenTheme ? (
+        <Toast
+          content='Open theme'
+          onDismiss={() =>
+            setShowToast({
+              ...setShowToast,
+              OpenTheme: false
+            })
+          }
+        />
+      ) : null}
+      {showToast.InstallTheFacebook ? (
+        <Toast
+          content='Install The Facebook Pixel Helper here'
+          onDismiss={() =>
+            setShowToast({
+              ...setShowToast,
+              InstallTheFacebook: false
+            })
+          }
+        />
+      ) : null}
+      {showToast.ManagePixels ? (
+        <Toast
+          content='Manage pixels'
+          onDismiss={() =>
+            setShowToast({
+              ...setShowToast,
+              ManagePixels: false
+            })
+          }
+        />
+      ) : null}
+      {showToast.CreateAnotherPixel ? (
+        <Toast
+          content='Create another pixel'
+          onDismiss={() =>
+            setShowToast({
+              ...setShowToast,
+              CreateAnotherPixel: false
+            })
+          }
+        />
+      ) : null}
+    </>
+  );
   return (
     <div className='wrapper-main'>
       <div className='main'>
@@ -60,10 +110,11 @@ const OnboardingPage: React.FC<onboardingProps> = () => {
         <div className='content'>
           <div className='content__head'>{render_content__head}</div>
           <div className='content__body'>
-            <StepLayout items={steps} />
+            {isStepComplete ? <StepComplete /> : <StepLayout items={steps} />}
           </div>
         </div>
       </div>
+      {toast}
     </div>
   );
 };

@@ -11,6 +11,8 @@ type State = {
   targetDefault: ComboboxItem[];
   targetSelected?: string | null;
   tagSelected: string[] | null;
+  isStepComplete: boolean;
+  showToast: any;
 };
 
 type Actions = {
@@ -21,6 +23,8 @@ type Actions = {
   setModelStep2: (value: any) => void;
   setTargetSelected: (value: string) => void;
   setTagSelected: (value: string[] | null) => void;
+  setIsStepComplete: (value: boolean) => void;
+  setShowToast: (value: any) => void;
 };
 
 export const onboardingStore = create<State & Actions>((set) => ({
@@ -44,5 +48,9 @@ export const onboardingStore = create<State & Actions>((set) => ({
   tagSelected: ["select 1", "select 2", "select 3"],
   setTagSelected: (value) => set({ tagSelected: value }),
   targetSelected: null,
-  setTargetSelected: (value) => set({ targetSelected: value })
+  setTargetSelected: (value) => set({ targetSelected: value }),
+  isStepComplete: false,
+  setIsStepComplete: (value) => set({ isStepComplete: value }),
+  showToast: {},
+  setShowToast: (value) => set({ showToast: value })
 }));
